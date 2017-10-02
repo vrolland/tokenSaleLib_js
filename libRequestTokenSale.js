@@ -173,7 +173,7 @@ var LibRequestTokenSale = function(myNodeUrl, ContractEthAdd, myEthAdd, _firstBL
 
 	var changeRegistrationStatuses = function(targets, isRegistered, callbackTxCreated, callbackTxMined) {
 		if(getOwnerTokenSale()!=web3.eth.defaultAccount) return callbackTxCreated("Need to be admin");
-		_contractInstance.changeRegistrationStatuses(targets, isRegistered, function(err,data){
+		_contractInstance.changeRegistrationStatuses(targets, isRegistered, {gas:_contractInstance.changeRegistrationStatuses.estimateGas(targets, isRegistered)}, function(err,data){
 			if(err) return callbackTxCreated(err);
 			callbackTxCreated(null,data); 
 			handleTx(data, callbackTxMined)
